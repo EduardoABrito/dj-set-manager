@@ -97,7 +97,7 @@ export default function PlaylistCard({ playlist }: PlaylistCardProps) {
               type="text"
               value={playlistName}
               onChange={(e) => setPlaylistName(e.target.value)}
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-4 py-3 border bg-transparent border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={loading}
             />
             <button
@@ -194,12 +194,12 @@ export default function PlaylistCard({ playlist }: PlaylistCardProps) {
       </div>
 
       {isAddingFolder ? (
-        <div className="mt-4 bg-white rounded-lg p-4 shadow-md">
+        <div className="mt-4 bg-transparent border border-gray-300 rounded-lg p-4 shadow-md">
           <input
             type="text"
             value={folderName}
             onChange={(e) => setFolderName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-3 border bg-transparent border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Nome da pasta"
             disabled={loading}
           />

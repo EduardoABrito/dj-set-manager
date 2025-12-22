@@ -25,12 +25,12 @@ export default function CreatePlaylistButton() {
 
   if (isCreating) {
     return (
-      <div className="bg-white rounded-xl p-6 shadow-xl">
+      <div className="bg-transparent border border-gray-300 rounded-xl p-6 shadow-xl">
         <input
           type="text"
           value={playlistName}
           onChange={(e) => setPlaylistName(e.target.value)}
-          className="w-80 px-4 py-3 border border-gray-300 rounded-lg mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-3 border bg-transparent shadow rounded-lg mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           placeholder="Nome da playlist"
           disabled={loading}
           autoFocus

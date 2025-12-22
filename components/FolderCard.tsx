@@ -60,7 +60,7 @@ export default function FolderCard({ folder }: FolderCardProps) {
   };
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-white rounded-xl p-6 shadow-lg border border-blue-100 hover:shadow-xl transition-all duration-300">
+    <div className="bg-transparent border border-gray-300 rounded-xl p-6 shadow-lg border border-blue-100 hover:shadow-xl transition-all duration-300">
       <div className="flex items-center justify-between mb-4">
         {isEditing ? (
           <div className="flex-1 flex gap-2">
@@ -68,7 +68,7 @@ export default function FolderCard({ folder }: FolderCardProps) {
               type="text"
               value={folderName}
               onChange={(e) => setFolderName(e.target.value)}
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-3 py-2 border bg-transparent border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               disabled={loading}
             />
             <button
@@ -134,7 +134,7 @@ export default function FolderCard({ folder }: FolderCardProps) {
             type="text"
             value={trackTitle}
             onChange={(e) => setTrackTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border bg-transparent border-gray-300 rounded-md mb-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Título da música"
             disabled={loading}
           />
@@ -142,7 +142,7 @@ export default function FolderCard({ folder }: FolderCardProps) {
             type="text"
             value={trackUrl}
             onChange={(e) => setTrackUrl(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border bg-transparent border-gray-300 rounded-md mb-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="URL do YouTube"
             disabled={loading}
           />
