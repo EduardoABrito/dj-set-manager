@@ -50,7 +50,7 @@ export default function TrackCard({ track }: TrackCardProps) {
 
   if (isEditing) {
     return (
-      <div className="bg-white rounded-lg p-4 shadow-md border border-gray-200">
+      <div className="bg-transparent rounded-lg p-4 shadow-md border border-gray-200">
         <input
           type="text"
           value={title}

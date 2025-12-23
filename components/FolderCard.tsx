@@ -129,7 +129,7 @@ export default function FolderCard({ folder }: FolderCardProps) {
       </div>
 
       {isAddingTrack ? (
-        <div className="mt-4 bg-white rounded-lg p-4 shadow-md border border-gray-200">
+        <div className="mt-4 bg-transparent rounded-lg p-4 shadow-md border border-gray-200">
           <input
             type="text"
             value={trackTitle}
