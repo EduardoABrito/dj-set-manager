@@ -33,7 +33,7 @@ export async function downloadYoutubeAudio(
 ): Promise<void> {
   const sanitizedFileName = sanitizeFileName(fileName);
   const outputTemplate = path.join(outputPath, `${sanitizedFileName}.mp3`);
-  const command = `yt-dlp -x --audio-format mp3 --audio-quality 0 -o "${outputTemplate}" "${youtubeUrl}"`;
+  const command = `yt-dlp -x --audio-format mp3 --referer "https://www.youtube.com" --audio-quality 0 -o "${outputTemplate}" "${youtubeUrl}"`;
 
   try {
     await execAsync(command);
