@@ -5,22 +5,33 @@ import { Inter } from 'next/font/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'DJ Set Manager',
-  description: 'Organize suas playlists, pastas e músicas para seus sets de DJ',
+  title: 'SyncWave | DJ Set Manager',
+  description:
+    'Organize suas playlists, pastas e músicas para seus sets de DJ',
+
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
+
   openGraph: {
+    title: 'SyncWave | DJ Set Manager',
+    description:
+      'Organize suas playlists, pastas e músicas para seus sets de DJ',
     images: [
       {
-        url: 'https://bolt.new/static/og_default.png',
+        url: '/icon.svg',
       },
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
-    images: [
-      {
-        url: 'https://bolt.new/static/og_default.png',
-      },
-    ],
+    title: 'SyncWave | DJ Set Manager',
+    description:
+      'Organize suas playlists, pastas e músicas para seus sets de DJ',
+    images: ['/icon.svg'],
   },
 };
 
