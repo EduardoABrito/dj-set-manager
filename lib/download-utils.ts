@@ -4,6 +4,7 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import archiver from 'archiver';
 import { createWriteStream } from 'fs';
+import { YtDlp } from 'ytdlp-nodejs'
 
 const execAsync = promisify(exec);
 
@@ -15,14 +16,23 @@ export async function ensureDirectory(dirPath: string): Promise<void> {
   }
 }
 
+
+export function sanitizeFileName(fileName: string): string {
+  return fileName
+    .normalize('NFD')                     
+    .replace(/[\u0300-\u036f]/g, '')      
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')          
+    .replace(/^-+|-+$/g, '');            
+}
+
 export async function downloadYoutubeAudio(
   youtubeUrl: string,
   outputPath: string,
   fileName: string
 ): Promise<void> {
-  const sanitizedFileName = fileName.replace(/[/\\?%*:|"<>]/g, '-');
-  const outputTemplate = path.join(outputPath, `${sanitizedFileName}.%(ext)s`);
-
+  const sanitizedFileName = sanitizeFileName(fileName);
+  const outputTemplate = path.join(outputPath, `${sanitizedFileName}.mp3`);
   const command = `yt-dlp -x --audio-format mp3 --audio-quality 0 -o "${outputTemplate}" "${youtubeUrl}"`;
 
   try {
@@ -55,8 +65,4 @@ export async function cleanupDirectory(dirPath: string): Promise<void> {
   } catch (error) {
     console.error('Erro ao limpar diretório:', error);
   }
-}
-
-export function sanitizeFileName(name: string): string {
-  return name.replace(/[/\\?%*:|"<>]/g, '-').trim();
 }

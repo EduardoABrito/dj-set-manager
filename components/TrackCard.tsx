@@ -3,6 +3,9 @@
 import { Track } from '@/types/database';
 import { deleteTrack, updateTrack } from '@/app/actions/playlist-actions';
 import { useState } from 'react';
+import { extractVideoId } from '@/utils/extractVideoId.util';
+import Image from 'next/image';
+import { ExternalLink, Trash2, Music as MusicIcon, Play } from 'lucide-react';
 
 interface TrackCardProps {
   track: Track;
@@ -14,6 +17,11 @@ export default function TrackCard({ track }: TrackCardProps) {
   const [url, setUrl] = useState(track.youtube_url);
   const [loading, setLoading] = useState(false);
 
+  const videoId = extractVideoId(track.youtube_url);
+  const thumbnailUrl = videoId
+    ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
+  : null;
+  
   const handleUpdate = async () => {
     if (!title.trim() || !url.trim()) return;
 
@@ -80,10 +88,28 @@ export default function TrackCard({ track }: TrackCardProps) {
   }
 
   return (
-    <div className="bg-gradient-to-br from-white to-gray-50 rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 group">
+    <div className="bg-blue-400/20 rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-200 group">
       <div className="flex items-start justify-between gap-3">
+          <div className="relative w-20 h-14 flex-shrink-0 bg-muted flex items-center justify-center overflow-hidden rounded-sm">
+            {thumbnailUrl ? (
+              <>
+                <Image
+                  src={thumbnailUrl}
+                  alt={track.title}
+                  width={60}
+                  height={45}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/20 transition-colors duration-200 flex items-center justify-center">
+                  <Play className="w-6 h-6 text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg" />
+                </div>
+              </>
+            ) : (
+              <MusicIcon className="w-5 h-5 text-muted-foreground" />
+            )}
+          </div>
         <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-semibold text-gray-900 truncate mb-1 group-hover:text-blue-600 transition-colors">
+          <h4 className="text-sm font-semibold text-gray-300 truncate mb-1 group-hover:text-blue-600 transition-colors">
             {track.title}
           </h4>
           <a
