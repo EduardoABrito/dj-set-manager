@@ -1,12 +1,10 @@
-import { exec } from 'child_process';
-import { promisify } from 'util';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import archiver from 'archiver';
 import { createWriteStream } from 'fs';
-import { YtDlp } from 'ytdlp-nodejs'
-
-const execAsync = promisify(exec);
+import Innertube, { ClientType, UniversalCache } from 'youtubei.js';
+import { extractVideoId } from '@/utils/extractVideoId.util';
+import { Readable }  from 'stream'
 
 export async function ensureDirectory(dirPath: string): Promise<void> {
   try {
@@ -33,11 +31,27 @@ export async function downloadYoutubeAudio(
 ): Promise<void> {
   const sanitizedFileName = sanitizeFileName(fileName);
   const outputTemplate = path.join(outputPath, `${sanitizedFileName}.mp3`);
-  const command = `yt-dlp -x --audio-format mp3 --cookies ./cookies.txt --referer "https://www.youtube.com" --audio-quality 0 -o "${outputTemplate}" "${youtubeUrl}"`;
-
+  const videoId = extractVideoId(youtubeUrl);
   try {
-    await execAsync(command);
+  
+  const yt = await Innertube.create({ 
+    cache: new UniversalCache(false),
+    generate_session_locally: true, 
+    client_type: ClientType.ANDROID
+  });  
+
+  const stream = await yt.download(videoId!, {
+    type: 'audio', 
+    quality: 'best',
+    format: 'mp4a',
+  });
+    
+  const file = createWriteStream(outputTemplate);
+  
+  Readable.fromWeb(stream as any).pipe(file);
+
   } catch (error: any) {
+    console.log(error)
     throw new Error(`Erro ao baixar áudio do YouTube: ${error.message}`);
   }
 }
